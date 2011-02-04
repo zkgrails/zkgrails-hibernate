@@ -1,3 +1,4 @@
+import org.zkoss.zkgrails.*
 import org.zkoss.zkgrails.scaffolding.DefaultScaffoldingTemplate
 import grails.util.*
 
