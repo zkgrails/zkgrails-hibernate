@@ -13,6 +13,7 @@ This is the ZK/Hibernate sub-plugin for Grails.
     <resource>UrlMappings</resource>
   </resources>
   <dependencies>
+    <plugin name='hibernate' version='1.3.6' />
     <plugin name='zk' version='1.0.2-CL' />
   </dependencies>
   <behavior />
