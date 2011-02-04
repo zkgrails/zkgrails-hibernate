@@ -10,7 +10,7 @@ target(main: "Copy the default zk.xml file to the main app at web-app/WEB-INF/")
     }
 
     if(proceed == true) {
-        ant.copy(file:"${zkPluginDir}/scripts/zk.xml", todir:"${basedir}/web-app/WEB-INF/", overwrite: true)
+        ant.copy(file:"${zkHibernatePluginDir}/scripts/zk.xml", todir:"${basedir}/web-app/WEB-INF/", overwrite: true)
     }
 }
 
