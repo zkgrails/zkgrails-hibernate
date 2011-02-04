@@ -1,0 +1,19 @@
+<plugin name='zk-hibernate' version='1.0.2-CL' grailsVersion='1.2 &gt; *'>
+  <author>Chanwit Kaewkasi</author>
+  <authorEmail>chanwit@gmail.com</authorEmail>
+  <title>Hibernate support for ZKGrails</title>
+  <description>\
+This is the ZK/Hibernate sub-plugin for Grails.
+</description>
+  <documentation>http://grails.org/plugin/zk-hibernate</documentation>
+  <resources>
+    <resource>BuildConfig</resource>
+    <resource>Config</resource>
+    <resource>DataSource</resource>
+    <resource>UrlMappings</resource>
+  </resources>
+  <dependencies>
+    <plugin name='zk' version='1.0.2-CL' />
+  </dependencies>
+  <behavior />
+</plugin>
