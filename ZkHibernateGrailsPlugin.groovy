@@ -36,7 +36,7 @@ class ZkHibernateGrailsPlugin {
         "web-app/*.zul",
         "test/**"
     ]
-    def loadAfter = ['hibernate']
+    def loadAfter = ['hibernate', 'zk']
 
     // TODO Fill in these fields
     def author = "Chanwit Kaewkasi"
@@ -49,8 +49,7 @@ This is the ZK/Hibernate sub-plugin for Grails.
     // URL to the plugin's documentation
     def documentation = "http://grails.org/plugin/zk-hibernate"
 
-    def doWithWebDescriptor = { xml ->
-        // TODO Implement additions to web.xml (optional), this event occurs before 
+    def doWithApplicationContext = { applicationContext ->
     }
 
     def doWithSpring = {
@@ -69,7 +68,7 @@ This is the ZK/Hibernate sub-plugin for Grails.
     static final String GOSIV_CLASS =
         "org.codehaus.groovy.grails.orm.hibernate.support.GrailsOpenSessionInViewFilter"
 
-    def doWithApplicationContext = { applicationContext ->
+    def doWithWebDescriptor = { xml ->
         //
         // e.g. ["zul"]
         //
