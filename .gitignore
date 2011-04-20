@@ -1,0 +1,5 @@
+grails-app/i18n/
+target/
+web-app/css/
+web-app/images/
+web-app/js/
