@@ -6,4 +6,5 @@ web-app/js/
 grails-*.zip
 web-app/WEB-INF/zk.xml
 zk-themes
+plugin.xml
 
