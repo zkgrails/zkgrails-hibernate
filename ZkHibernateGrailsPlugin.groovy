@@ -8,7 +8,7 @@ class ZkHibernateGrailsPlugin {
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "1.2 > *"
     // the other plugins this plugin depends on
-    def dependsOn = [hibernate:GrailsUtil.grailsVersion, zk:version]
+    // def dependsOn = [hibernate:"2.0.0.M2", zk:"${version}"]
     // resources that are excluded from plugin packaging
     def pluginExcludes = [
         "grails-app/conf/Config.groovy",

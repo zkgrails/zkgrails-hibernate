@@ -1,7 +1,7 @@
-package org.zkoss.zkgrails.scaffolding
+package org.zkoss.zk.grails.scaffolding
 
 import org.apache.commons.lang.StringUtils as SU
-import org.zkoss.zkgrails.*
+import org.zkoss.zk.grails.*
 import org.codehaus.groovy.grails.scaffolding.*
 import org.zkoss.zkplus.databind.DataBinder
 import org.zkoss.zk.ui.event.ForwardEvent
