@@ -52,7 +52,7 @@ class DefaultScaffoldingTemplate implements ScaffoldingTemplate {
             case java.util.Date.class:
             case java.sql.Date.class:
             case Calendar.class:
-                editor = b.datebox(id: "fd_${p.name}", cols: colwidth);
+                editor = b.datebox(id: "fd_${p.name}", cols: colwidth-4);
                 binder.addBinding(editor, "value", "selected.${p.name}")
                 break
             case java.sql.Time.class:
@@ -78,9 +78,7 @@ class DefaultScaffoldingTemplate implements ScaffoldingTemplate {
                 } else if(p.manyToOne || p.oneToOne) {
                     if(p.association) {
                         b.hbox {
-                            editor = bandbox(id: "fd_${p.name}",
-                                               use: org.zkoss.zkgrails.zul.Bandbox,
-                                               cols: colwidth, readonly: true) {
+                            editor = bandbox(id: "fd_${p.name}", cols: colwidth, readonly: true) {
                                 bandpopup(width: "300px") {
                                 vbox {
                                     listbox(mold: "paging",
@@ -104,13 +102,11 @@ class DefaultScaffoldingTemplate implements ScaffoldingTemplate {
                 } else if(   (p.oneToMany  && !p.bidirectional)
                           || (p.manyToMany &&  p.isOwningSide())) {
                     if(p.association) {
-                        def bb = null
+                        def bb  = null
                         def lst = null
                         b.vbox {
                             hbox {
-                                bb = bandbox(id:"fd_${p.name}_bb",
-                                        use: org.zkoss.zkgrails.zul.Bandbox,
-                                        cols: colwidth, readonly: true) {
+                                bb = bandbox(id:"fd_${p.name}_bb", cols: colwidth, readonly: true) {
                                     bandpopup(width: "300px" ) {
                                         vbox {
                                             listbox(mold: "paging",
@@ -206,6 +202,11 @@ class DefaultScaffoldingTemplate implements ScaffoldingTemplate {
         dc = grailsApplication.getDomainClass(scaffold.name)
         placeHolder = window.getFellowIfAny("scaffoldingBox")
 
+        //
+        // todo, if placeHolder == null
+        // return
+        //
+
         def excludedProps = ['version',
                                Events.ONLOAD_EVENT,
                                Events.BEFORE_DELETE_EVENT,
@@ -260,7 +261,7 @@ class DefaultScaffoldingTemplate implements ScaffoldingTemplate {
                         binder.saveAll()
                         selected = selected?.merge(flush: true)
                         if(selected.version==0) { // newly inserted
-                            scaffoldPaging.totalSize = scaffold.count()
+                            scaffoldPaging.totalSize  = scaffold.count()
                             scaffoldPaging.activePage = scaffoldPaging.pageCount - 1
                         }
                         redraw(scaffoldPaging.activePage)
