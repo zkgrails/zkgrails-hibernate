@@ -1,14 +1,18 @@
 package org.zkoss.zk.grails.scaffolding
 
+import grails.persistence.Event
+
 import org.apache.commons.lang.StringUtils as SU
-import org.zkoss.zk.grails.*
-import org.codehaus.groovy.grails.scaffolding.*
-import org.zkoss.zkplus.databind.DataBinder
-import org.zkoss.zk.ui.event.ForwardEvent
+
 import org.codehaus.groovy.grails.commons.GrailsApplication
+import org.codehaus.groovy.grails.scaffolding.*
+
+import org.zkoss.zk.grails.*
 import org.zkoss.zk.ui.Component
-import org.codehaus.groovy.grails.orm.hibernate.support.ClosureEventTriggeringInterceptor as Events
+import org.zkoss.zk.ui.event.ForwardEvent
 import org.zkoss.zkplus.databind.BindingListModelList
+import org.zkoss.zkplus.databind.DataBinder
+
 
 class DefaultScaffoldingTemplate implements ScaffoldingTemplate {
 
@@ -26,10 +30,10 @@ class DefaultScaffoldingTemplate implements ScaffoldingTemplate {
     def selected
 
     def renderEditor(b, it, p, cp) {
-        def old = b.parent
+        def old  = b.parent
         b.parent = it
         def colwidth = 25
-        def editor = null
+        def editor   = null
         switch(p.type) {
             case String.class:
             case URL.class:
@@ -201,22 +205,18 @@ class DefaultScaffoldingTemplate implements ScaffoldingTemplate {
 
         dc = grailsApplication.getDomainClass(scaffold.name)
         placeHolder = window.getFellowIfAny("scaffoldingBox")
+        if (!placeHolder) return
 
-        //
-        // todo, if placeHolder == null
-        // return
-        //
+        def pluginManager = grailsApplication.mainContext.pluginManager
 
-        def excludedProps = ['version',
-                               Events.ONLOAD_EVENT,
-                               Events.BEFORE_DELETE_EVENT,
-                               Events.BEFORE_INSERT_EVENT,
-                               Events.BEFORE_UPDATE_EVENT]
-        scaffoldProps = (dc.properties as Object[]).findAll {
-            !excludedProps.contains(it.name)
+        def excludedProps = Event.allEvents.toList() << 'version' << 'dateCreated' << 'lastUpdated'
+        def persistentPropNames = dc.persistentProperties*.name
+        boolean hasHibernate = pluginManager?.hasGrailsPlugin('hibernate')
+        if (hasHibernate && org.codehaus.groovy.grails.orm.hibernate.cfg.GrailsDomainBinder.getMapping(dc)?.identity?.generator == 'assigned') {
+            persistentPropNames << dc.identifier.name
         }
-
-        scaffoldProps = scaffoldProps.sort(new DomainClassPropertyComparator(dc))
+        scaffoldProps = dc.properties.findAll { persistentPropNames.contains(it.name) && !excludedProps.contains(it.name) }
+        Collections.sort(scaffoldProps, new DomainClassPropertyComparator(dc))
 
         placeHolder.append {
             scaffoldListbox = listbox(id: "lst${scaffold.name}",
@@ -229,7 +229,9 @@ class DefaultScaffoldingTemplate implements ScaffoldingTemplate {
                         if(cp?.display==true && count < 6) {
                             count++
                             if(!p.isAssociation()) {
+                                //
                                 // TODO: enable sorting
+                                //
                                 listheader(label:"${p.naturalName}")
                             } else {
                                 listheader(label:"${p.naturalName}")
@@ -250,13 +252,13 @@ class DefaultScaffoldingTemplate implements ScaffoldingTemplate {
             groupbox {
                 caption(label: "${scaffold.name}")
                 toolbar {
-                    def w="75px"                    
+                    def w="75px"
                     toolbarbutton(id:"btnAdd",     label:"New",
                         image: resource('images', 'skin/database_add.png') , width: w, onClick: { e ->
                         selected = scaffold.newInstance()
                         redrawForm()
                     })
-                    toolbarbutton(id:"btnUpdate",  label:"Update",  
+                    toolbarbutton(id:"btnUpdate",  label:"Update",
                         image: resource('images', 'skin/database_save.png'), width: w, onClick: { e ->
                         binder.saveAll()
                         selected = selected?.merge(flush: true)

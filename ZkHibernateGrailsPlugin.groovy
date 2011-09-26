@@ -1,5 +1,5 @@
 import org.zkoss.zk.grails.*
-import org.zkoss.zk.grails.scaffolding.DefaultScaffoldingTemplate
+import org.zkoss.zk.grails.scaffolding.*
 import grails.util.*
 
 class ZkHibernateGrailsPlugin {
