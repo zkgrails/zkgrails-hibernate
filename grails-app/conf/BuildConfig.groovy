@@ -18,17 +18,25 @@ grails.project.dependency.resolution = {
         // from public Maven repositories
         //mavenLocal()
         //mavenCentral()
+        mavenRepo "http://zkgrails.googlecode.com/svn/repo/"
         //mavenRepo "http://snapshots.repository.codehaus.org"
         //mavenRepo "http://repository.codehaus.org"
         //mavenRepo "http://download.java.net/maven/2/"
         //mavenRepo "http://repository.jboss.com/maven2/"
     }
     dependencies {
-        // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
-        // runtime 'mysql:mysql-connector-java:5.1.13'
+        // runtime ("org.zkoss.zk:zhtml:5.0.9") { transitive = false }
+        build ("com.google.code.maven-svn-wagon:maven-svn-wagon:1.4") {
+            export = false
+        }
     }
     plugins {
-        runtime ":hibernate:$grailsVersion"
-        runtime ":zk:1.1.M2"
+        runtime (":hibernate:$grailsVersion")
+        runtime (":zk:2.0.0.BUILD-SNAPSHOT")
+        build(":tomcat:$grailsVersion",
+              ":release:1.0.0.RC3",
+              ":svn:1.0.0.M1") {
+            export = false
+        }
     }
 }
