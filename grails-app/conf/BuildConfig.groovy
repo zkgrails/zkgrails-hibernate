@@ -24,17 +24,19 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://download.java.net/maven/2/"
         //mavenRepo "http://repository.jboss.com/maven2/"
     }
+
     dependencies {
-        compile "org.zkoss.zk.grails:zk:5.0.9"
         build ("com.google.code.maven-svn-wagon:maven-svn-wagon:1.4") {
             export = false
         }
     }
+
     plugins {
         compile ":hibernate:$grailsVersion"
+        compile ":zk:2.0.0.M2"
         build(":tomcat:$grailsVersion",
-              ":release:1.0.0.RC3",
-              ":svn:1.0.0.M1") {
+              ":release:1.0.1",
+              ":svn:1.0.2") {
             export = false
         }
     }
