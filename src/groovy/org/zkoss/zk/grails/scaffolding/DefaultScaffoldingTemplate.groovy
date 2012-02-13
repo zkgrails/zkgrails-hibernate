@@ -207,6 +207,11 @@ class DefaultScaffoldingTemplate implements ScaffoldingTemplate {
         placeHolder = window.getFellowIfAny("scaffoldingBox")
         if (!placeHolder) return
 
+        //
+        // Hack to make vbox filled the parent
+        //        
+        placeHolder.width = "100%"
+
         def pluginManager = grailsApplication.mainContext.pluginManager
 
         def excludedProps = Event.allEvents.toList() << 'version' << 'dateCreated' << 'lastUpdated'
