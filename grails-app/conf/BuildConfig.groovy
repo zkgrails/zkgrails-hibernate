@@ -33,7 +33,7 @@ grails.project.dependency.resolution = {
 
     plugins {
         compile ":hibernate:$grailsVersion"
-        compile ":zk:2.0.0.M2"
+        compile ":zk:latest.integration"
         build(":tomcat:$grailsVersion",
               ":release:1.0.1",
               ":svn:1.0.2") {
