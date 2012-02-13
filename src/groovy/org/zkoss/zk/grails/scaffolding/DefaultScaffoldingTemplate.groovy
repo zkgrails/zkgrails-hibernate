@@ -265,6 +265,10 @@ class DefaultScaffoldingTemplate implements ScaffoldingTemplate {
                     })
                     toolbarbutton(id:"btnUpdate",  label:"Update",
                         image: resource('images', 'skin/database_save.png'), width: w, onClick: { e ->
+                        if(selected == null) {
+                            selected = scaffold.newInstance()
+                            binder.bindBean("selected", selected)
+                        }
                         binder.saveAll()
                         selected = selected?.merge(flush: true)
                         if(selected.version==0) { // newly inserted
