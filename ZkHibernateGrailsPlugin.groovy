@@ -4,9 +4,9 @@ import grails.util.*
 
 class ZkHibernateGrailsPlugin {
     // the plugin version
-    def version = "2.0.0.BUILD-SNAPSHOT"
+    def version = "2.0.0.M4"
     // the version or versions of Grails the plugin is designed for
-    def grailsVersion = "1.3 > *"
+    def grailsVersion = "2.0 > *"
     // the other plugins this plugin depends on
     // def dependsOn = [hibernate:"2.0.0.M2", zk:"${version}"]
     // resources that are excluded from plugin packaging
