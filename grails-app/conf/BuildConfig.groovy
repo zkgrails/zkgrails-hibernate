@@ -12,16 +12,8 @@ grails.project.dependency.resolution = {
     repositories {
         grailsPlugins()
         grailsHome()
+        mavenRepo "http://zkgrails.googlecode.com/svn/repo/"        
         grailsCentral()
-
-        // uncomment the below to enable remote dependency resolution
-        // from public Maven repositories
-        //mavenLocal()
-        //mavenCentral()        
-        //mavenRepo "http://snapshots.repository.codehaus.org"
-        //mavenRepo "http://repository.codehaus.org"
-        //mavenRepo "http://download.java.net/maven/2/"
-        //mavenRepo "http://repository.jboss.com/maven2/"
     }
 
     dependencies {
@@ -32,7 +24,7 @@ grails.project.dependency.resolution = {
 
     plugins {
         compile ":hibernate:$grailsVersion"
-        compile ":zk:2.0.0.M5"
+        compile ":zk:2.0.0.BUILD-SNAPSHOT"
         build(":tomcat:$grailsVersion",
               ":release:1.0.1",
               ":svn:1.0.2") {
